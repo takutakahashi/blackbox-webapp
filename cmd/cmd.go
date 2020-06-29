@@ -11,9 +11,13 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com/prometheus/common/log"
 )
 
+var globalCnt int
+
 func main() {
+	globalCnt = 10
 	port := os.Getenv("PORT")
 	if port == "" {
 		panic("environment variable PORT is empty")
@@ -67,5 +71,11 @@ func main() {
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", port)))
 }
 func hello(c echo.Context) error {
+	if globalCnt < 0 {
+		log.Info("gorilla")
+	} else {
+		log.Info(globalCnt)
+	}
+	globalCnt--
 	return c.String(http.StatusOK, "Lion")
 }
