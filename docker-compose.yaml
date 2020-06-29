@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    image: takutakahashi/blackbox-webapp
+    ports:
+     - "3000:3000"
+    environment:
+      - PORT=3000
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - mysql
+      - redis
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  redis:
+    image: redis
