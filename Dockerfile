@@ -6,6 +6,7 @@ RUN cd /src && GO111MODULE=on go build -o app cmd/cmd.go
 FROM alpine
 WORKDIR /app
 COPY --from=build-env /src/app /app
+COPY animal.txt /app/
 
 EXPOSE 8000
 
